@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+<!-- Add additional CSS in static file -->
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/district_styles.css' %}">
+<script src="{% static 'js/district.js' %}" defer="true"></script>
+
+<script src="{% static 'js/jquery-3.2.1.js' %}"></script>
+<script src="{% static 'js/jquery-ui-1.12.1/jquery-ui.js' %}"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.3.2/chart.min.js"></script>
+
+{% block content %}
+
+  <h1 class='chart-title'> {{ city }} -  {{ location }}</h1> 
+  溫度: {{ temperature }} °C
+
+  <div class="vending-barlist">
+    <canvas id="myChart" width="100" height="40"></canvas>
+  </div>
+
+  <script>
+    drink_name = ["礦泉水", "礦泉水", "氣泡水","可樂","FIN","FIN","麥香奶茶","麥香紅茶","麥香綠茶","蘋果C","葡萄C ","蜜桃C"]
+    drink_actual = [4, 8, 5, 6, 7, 4, 8, 5, 6, 7]
+    drink_total = [10, 10, 10, 10, 10,10, 10, 10, 10, 10],
+    console.log("here is 各區資料")
+    
+    var data = {
+        labels: drink_name,
+        datasets: [{
+                    label: "Actual",
+                    backgroundColor: 'rgba(0, 0, 255, 0.5)',
+                    borderWidth: 1,
+                    data: drink_actual,
+                    xAxisID: "bar-x-axis1",
+                    stack: "background",
+
+                },
+                {
+                    label: "Total",
+                    backgroundColor: 'rgba(0, 0, 0, 0.2)',
+                    borderWidth: 1,
+                    data: drink_total,
+                    xAxisID: "bar-x-axis2",
+                    
+
+                    
+                }
+            ]
+        };
+
+  var options = {
+            // scales: {
+            //   yAxes: [{
+            //         id: "bar-y-axis1",
+            //         stacked: false,
+            //         ticks: {
+            //             beginAtZero: true
+            //         }
+            //     }]
+            // }, // end scales
+            scales: {
+                xAxes: [
+                    {
+                        id: "bar-x-axis2",
+                        stacked: true,
+                        categoryPercentage: 0.5,
+                        barPercentage: 0.5
+                    },
+                    {
+                        display: true,
+                        stacked: true,
+                        id: "bar-x-axis1",
+                        type: 'category',
+                        categoryPercentage: 0.4,
+                        barPercentage: 1,
+                        gridLines: {
+                            offsetGridLines: true
+                        }
+                    }
+                ],
+
+                yAxes: [{
+                    id: "bar-y-axis1",
+                    stacked: false,
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+
+            }
+      };
+
+
+        var ctx = document.getElementById("myChart");
+        var myBarChart = new Chart(ctx, {
+            type: 'bar',
+            data: data,
+            options: options
+        });
+  </script>
+
+
+{% endblock %}
+

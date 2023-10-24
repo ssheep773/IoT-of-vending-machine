@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% block title %}<title>Vending Machine</title>{% endblock %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  
+  {% load static %}
+
+  <link rel="stylesheet" href="{% static 'css/base_styles.css' %}">
+  <script src="{% static 'js/base.js' %}" defer="true"></script>
+  <script src="{% static 'js/district.js' %}" defer="true"></script>
+  
+  <script src="{% static 'js/jquery-3.2.1.js' %}"></script>
+  <script src="{% static 'js/jquery-ui-1.12.1/jquery-ui.js' %}"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.3.2/chart.js"></script>
+
+  <script>
+    $.ajaxSetup({
+        data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+    });
+  </script>
+</head>
+
+
+<body>
+  <div class="container-fluid">
+    <div class="page-title"><a>自動販賣機</a></div>
+
+    <div class="page-content">
+
+      <div class="barlist">
+
+          <div id="statistics" class="bar"><a href="#">統計資料</a></div>
+          <div id="district" class="bar" ><a href="#">各區資料</a></div>
+
+          <div class='citybar'>
+              <div class="city" id="Kaohsiung"><a href="#">高雄市</a></div>
+              <div id="KHH-citylist" class="citylist">
+                <div class="location" data-item="Kaohsiung"><a href="#"">風雨球場</a></div>
+                <div class='location' data-item="Kaohsiung"><a href="#">綜合宿舍</a></div>
+              </div>
+
+              <div class="city" id="Taipei"><a href="#">台北市</a></div>
+              <div id="TPE-citylist" class="citylist">
+                  <div class='location' data-item="Taipei"><a href="#">台北101</a></div>
+                  <div class='location' data-item="Taipei"><a href="#">台北轉運站</a></div>
+              </div>
+
+              <div class="city" id="Taichung"><a href="#">台中市</a></div>
+              <div id="TXG-citylist" class="citylist">
+                  <div class='location' data-item="Taichung"><a href="#">台中火車站</a></div>
+                  <div class='location' data-item="Taichung"><a href="#">台中一中</a></div>
+              </div>
+
+          </div>
+      </div>
+
+      <div class="extend-html">
+        <!-- {% block content %}{% endblock %} -->
+        <h1 class='chart-title'>統計資料</h1> 
+        <a class='temperature' style="display: none;">溫度:  °C</a>
+
+        <div class="vending-barlist">
+          <canvas id="myChart" width="100" height="40"></canvas>
+        </div>
+
+      </div>
+
+    </div>   
+    <!-- end col-sm-2 -->
+  </div>
+
+</body>
+</html>
